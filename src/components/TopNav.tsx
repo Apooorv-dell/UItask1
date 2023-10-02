@@ -16,14 +16,12 @@ const TopNav = ({selected,onSelected}:Props) => {
    {id:2 ,title:"Application"},
    {id:3 ,title:"workflow"},
    {id:4, title:"Preview"}
- 
-   
-  ];
+ ];
 
 
   return (
     <>
-      <HStack boxShadow={"lg"}>
+      <HStack boxShadow={"lg"} >
         {navData.map((data) => (
           <Box
             w={"100%"}

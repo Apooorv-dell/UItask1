@@ -1,18 +1,34 @@
 import {  Grid, GridItem, Box} from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import  axios from "axios";
 
 import "./App.css";
 import SideNav from "./components/SideNav";
 import AvatarProfile from "./components/AvatarProfile";
 import TopNav from "./components/TopNav";
-import { useState } from "react";
+import { InfoTemplate } from "./components/InfoTemplate";
+import { PersonalInforTem } from "./components/inputTemplate/PersonalInforTem";
+
+
 
 
 interface Data{
   id:Number,
   title: String
 }
+
+
+
 function App() {
-  const [selected, setSelected]= useState<Data | null>()
+  const [selected, setSelected]= useState<Data | null>(null);
+  const [backData,setBackData] = useState<any>();
+  useEffect(()=>{
+         axios.get("http://127.0.0.1:4010/api/441.9110323947733/programs/reprehenderit/application-form").then((res)=> setBackData(res.data.data) )
+    
+
+  },[])
+
+
 
   return (
     <>
@@ -27,11 +43,13 @@ function App() {
             <Box  placeSelf={'center'} ><AvatarProfile/></Box>
 
         </GridItem>
-        <GridItem area="nav"  alignSelf={'center'}>
+        <GridItem area="nav"  alignSelf={'center'}  >
           <TopNav selected={selected} onSelected={(sel) => setSelected(sel)}/>
         </GridItem>
-        <GridItem area="main" bg="tomato">
-          hello
+        <GridItem area="main">
+          {/* <FileUpload/> */}
+          <InfoTemplate title={"upload Image"}/>
+          <PersonalInforTem  backData={backData} title={"Personal Information"}/>
         </GridItem>
       </Grid>
     </>
